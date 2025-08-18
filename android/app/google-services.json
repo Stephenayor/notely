@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "697202726960",
+    "project_id": "notely-a470d",
+    "storage_bucket": "notely-a470d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697202726960:android:95a40ae05de851cffaf5f5",
+        "android_client_info": {
+          "package_name": "com.example.notely"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697202726960-0so2fcsrrif7gnl6923gkcta288m7l9v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.notely",
+            "certificate_hash": "c790d5ef88b0bea3760226a3c87c61e0367881f8"
+          }
+        },
+        {
+          "client_id": "697202726960-9sob30a2ufs63ic9a6micr6lmkq3ta2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqI2vGqGGYbCtLYPe57Wu9Saxo9wFJ8jc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697202726960-9sob30a2ufs63ic9a6micr6lmkq3ta2h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "697202726960-31qipfpm5ovvdj7rcjkjr5s0110lgabo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.notely"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
