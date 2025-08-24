@@ -27,6 +27,7 @@ class CreateNotesViewmodel extends ChangeNotifier {
         createdAt: now,
         updatedAt: now,
         userId: userId,
+        isFavorite: false,
       );
 
       await _noteRepository.saveNote(note, userId);

@@ -131,8 +131,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
                 const SizedBox(height: 14),
 
-                // Cards grid
-                // Cards grid with states
+                // Cards Grid
                 Expanded(
                   child: Builder(
                     builder: (context) {
@@ -150,6 +149,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       if (homeViewModel.filteredNotes.isEmpty) {
                         return const Center(child: Text("No notes found"));
                       }
+
                       return GridView.builder(
                         itemCount: homeViewModel.filteredNotes.length,
                         gridDelegate:
@@ -160,9 +160,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               childAspectRatio: 0.78,
                             ),
                         itemBuilder: (_, index) {
-                          final filteredNotes =
-                              homeViewModel.filteredNotes[index];
-                          return NoteCardItem(note: filteredNotes);
+                          final note = homeViewModel.filteredNotes[index];
+                          return NoteCardItem(note: note);
                         },
                       );
                     },
@@ -197,7 +196,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       icon: Icons.note_add,
                       onPressed: () async {
                         await context.push(Routes.createNote);
-                        context.read<HomeViewModel>().listenToNotes();
+
+                        // context.read<HomeViewModel>().listenToNotes();
                       },
                     ),
                     const SizedBox(height: 12),

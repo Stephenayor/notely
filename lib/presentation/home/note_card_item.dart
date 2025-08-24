@@ -15,9 +15,9 @@ class NoteCardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final createNotesViewModel = context.read<CreateNotesViewmodel>();
+    final _ = context.read<CreateNotesViewmodel>();
     final noteBaseViewModel = context.read<NotesBaseViewmodel>();
-    final userId = FirebaseAuth.instance.currentUser!.uid;
+    final currentUserId = FirebaseAuth.instance.currentUser!.uid;
     const borderRadius = 14.0;
 
     return GestureDetector(
@@ -43,13 +43,47 @@ class NoteCardItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    note.title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          note.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Consumer<NotesBaseViewmodel>(
+                        builder: (_, baseVm, __) {
+                          return IconButton(
+                            icon: Icon(
+                              Icons.favorite,
+                              color: note.isFavorite ? Colors.red : Colors.grey,
+                            ),
+                            onPressed:
+                                baseVm.isLoading
+                                    ? null
+                                    : () async => await baseVm.toggleFavorite(
+                                      note.id,
+                                      currentUserId,
+                                      note.isFavorite,
+                                    ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
+
+                  // Text(
+                  //   note.title,
+                  //   style: const TextStyle(
+                  //     fontWeight: FontWeight.w600,
+                  //     fontSize: 16,
+                  //   ),
+                  // ),
                   const SizedBox(height: 8),
                   Expanded(
                     child: Text(
@@ -71,7 +105,7 @@ class NoteCardItem extends StatelessWidget {
                               : () async {
                                 await noteBaseViewModel.deleteNote(
                                   note.id,
-                                  userId,
+                                  currentUserId,
                                 );
                                 if (noteBaseViewModel.errorMessage != null) {
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -125,3 +159,98 @@ class NoteCardItem extends StatelessWidget {
     );
   }
 }
+
+// class NoteCardItem extends StatelessWidget {
+//   final Note note;
+//   const NoteCardItem({super.key, required this.note});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final vm = context.read<NotesBaseViewmodel>();
+//     final firebaseAuth = FirebaseAuth.instance;
+//     final userId = firebaseAuth.currentUser?.uid;
+//
+//     return Container(
+//       margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+//       padding: const EdgeInsets.all(14),
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.circular(14),
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.black.withOpacity(0.05),
+//             blurRadius: 10,
+//             offset: const Offset(0, 4),
+//           ),
+//         ],
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           /// Title + Favorite Button
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Expanded(
+//                 child: Text(
+//                   note.title,
+//                   style: const TextStyle(
+//                     fontWeight: FontWeight.w600,
+//                     fontSize: 16,
+//                   ),
+//                   overflow: TextOverflow.ellipsis,
+//                 ),
+//               ),
+//               Consumer<NotesBaseViewmodel>(
+//                 builder: (_, baseVm, __) {
+//                   return IconButton(
+//                     icon: Icon(
+//                       Icons.favorite,
+//                       color: note.isFavorite ? Colors.red : Colors.grey,
+//                     ),
+//                     onPressed:
+//                         baseVm.isLoading
+//                             ? null
+//                             : () async => await baseVm.toggleFavorite(
+//                               note.id,
+//                               userId!,
+//                               note.isFavorite,
+//                             ),
+//                   );
+//                 },
+//               ),
+//             ],
+//           ),
+//
+//           const SizedBox(height: 8),
+//
+//           Text(
+//             note.body,
+//             style: const TextStyle(fontSize: 14, color: Colors.black87),
+//             maxLines: 4,
+//             overflow: TextOverflow.ellipsis,
+//           ),
+//
+//           const SizedBox(height: 12),
+//
+//           Row(
+//             children: [
+//               Consumer<NotesBaseViewmodel>(
+//                 builder: (_, baseVm, __) {
+//                   return IconButton(
+//                     icon: const Icon(Icons.delete, color: Colors.red),
+//                     onPressed:
+//                         baseVm.isLoading
+//                             ? null
+//                             : () async =>
+//                                 await baseVm.deleteNote(note.id, userId!),
+//                   );
+//                 },
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

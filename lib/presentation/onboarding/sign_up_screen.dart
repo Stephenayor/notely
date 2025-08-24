@@ -8,6 +8,7 @@ import 'package:uuid/uuid.dart';
 import '../../data/model/user_profile.dart';
 import '../../utils/constants.dart';
 import '../../utils/routes.dart';
+import '../../utils/success_screen.dart';
 import 'google_auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -144,26 +145,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: 40),
 
-                // Continue button
-                // SizedBox(
-                //   width: double.infinity,
-                //   height: 50,
-                //   child: ElevatedButton(
-                //     onPressed: agreedToTerms ? () {} : null,
-                //     style: ElevatedButton.styleFrom(
-                //       backgroundColor: Colors.blue,
-                //       disabledBackgroundColor: Colors.grey[300],
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(25),
-                //       ),
-                //     ),
-                //     child: const Text(
-                //       "Continue",
-                //       style: TextStyle(color: Colors.white, fontSize: 16),
-                //     ),
-                //   ),
-                // ),
-                // const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
                   height: 50,
@@ -185,14 +166,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                               if (user != null) {
                                 if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                        'Account created successfully',
-                                      ),
-                                    ),
+                                  context.go(
+                                    Routes.successScreen,
+                                    extra: {
+                                      "title": "Account Created Successfully",
+                                      "message":
+                                          "Welcome aboard! Your account has been created.",
+                                      "primaryButtonText": "Go to Home",
+                                      "secondaryButtonText": "Done",
+                                      "primaryRoute": Routes.home,
+                                      "secondaryRoute": Routes.signUp,
+                                    },
                                   );
-                                  context.go(Routes.home);
                                 }
                               } else {
                                 if (context.mounted) {
@@ -286,7 +271,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     "Profile saved!",
                                     Toast.lengthShort,
                                   );
-                                  context.go(Routes.home);
+                                  if (context.mounted) {
+                                    // Navigator.pushReplacement(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder:
+                                    //         (_) => SuccessScreen(
+                                    //           title:
+                                    //               "Account Created Successfully",
+                                    //           message:
+                                    //               "${user.displayName} you have successfully created your notely account",
+                                    //           primaryButtonText: "Go Home",
+                                    //           secondaryButtonText: "Done",
+                                    //           onPrimaryPressed: () {
+                                    //             context.go(
+                                    //               Routes.home,
+                                    //             ); // Navigate to Home
+                                    //           },
+                                    //           onSecondaryPressed: () {
+                                    //             context.pop(
+                                    //               context,
+                                    //             ); // Close success screen
+                                    //           },
+                                    //         ),
+                                    //   ),
+                                    // );
+                                  }
+
+                                  //Navigate to home
+                                  // context.go(Routes.home);
                                 } else {
                                   // Sign-in failed
                                   Constants.showToast(

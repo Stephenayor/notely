@@ -50,6 +50,7 @@ flutter:
      - assets/images/apple.png
      - assets/images/writing.png
      - assets/images/facebook.png
+     - assets/images/notely_sucess.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

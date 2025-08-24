@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notely/utils/error_dialog.dart';
 import 'package:notely/utils/routes.dart';
 import 'package:provider/provider.dart';
 import '../../utils/app_loading_dialog.dart';
@@ -183,8 +184,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         );
                                         AppLoadingDialog.hide(context);
+                                        ErrorDialog.show(
+                                          context,
+                                          "Login Failed",
+                                          loginViewModel.errorMessage!,
+                                        );
                                       } else {
                                         print(loginViewModel.errorMessage);
+                                        ErrorDialog.show(
+                                          context,
+                                          "Login Failed",
+                                          loginViewModel.errorMessage!,
+                                        );
                                       }
                                     }
                                   },

@@ -7,5 +7,6 @@ class Routes {
   static const String noteDetails = '/note-details';
   static const String createNote = '/create-note-screen';
   static const String editNote = '/editNoteScreen';
+  static const String successScreen = '/success-screen';
   static const String aiAssistant = '/ai-assistant';
 }

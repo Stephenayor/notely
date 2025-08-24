@@ -39,4 +39,47 @@ class BaseRepositoryImpl implements BaseRepository {
       throw Exception("Failed to update note: $e");
     }
   }
+
+  @override
+  Stream<List<Note>> streamNotes(String userId) {
+    return _firestore
+        .collection("notes_table")
+        .doc(userId)
+        .collection("notes")
+        .orderBy("createdAt", descending: true)
+        .snapshots()
+        .map((snapshot) {
+          return snapshot.docs.map((doc) {
+            final data = doc.data();
+            return Note(
+              id: doc.id,
+              title: data['title'] ?? '',
+              body: data['body'] ?? '',
+              createdAt: (data['createdAt'] as Timestamp).toDate(),
+              updatedAt: (data['updatedAt'] as Timestamp).toDate(),
+              userId: data['userId'] ?? '',
+              isFavorite: data['isFavorite'] ?? false,
+            );
+          }).toList();
+        });
+  }
+
+  @override
+  Future<void> toggleFavorite(
+    String noteId,
+    String userId,
+    bool isFavorite,
+  ) async {
+    try {
+      final favorite = !isFavorite;
+      await _firestore
+          .collection("notes_table")
+          .doc(userId)
+          .collection("notes")
+          .doc(noteId)
+          .update({'isFavorite': favorite});
+    } catch (e) {
+      throw Exception("Failed to update note: $e");
+    }
+  }
 }

@@ -5,6 +5,7 @@ class Note {
   final DateTime createdAt;
   final DateTime updatedAt;
   final String userId;
+  late bool isFavorite;
 
   Note({
     required this.id,
@@ -13,6 +14,7 @@ class Note {
     required this.createdAt,
     required this.updatedAt,
     required this.userId,
+    required this.isFavorite,
   });
 
   Note copyWith({
@@ -22,6 +24,7 @@ class Note {
     DateTime? createdAt,
     DateTime? updatedAt,
     String? userId,
+    bool? isFavorite,
   }) {
     return Note(
       id: id ?? this.id,
@@ -30,6 +33,7 @@ class Note {
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       userId: userId ?? this.userId,
+      isFavorite: isFavorite ?? this.isFavorite,
     );
   }
 
@@ -41,6 +45,7 @@ class Note {
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
       'userId': userId,
+      'isFavorite': isFavorite,
     };
   }
 
@@ -52,6 +57,7 @@ class Note {
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: DateTime.parse(map['updatedAt']),
       userId: map['userId'] ?? '',
+      isFavorite: map['isFavorite'] ?? false,
     );
   }
 }
