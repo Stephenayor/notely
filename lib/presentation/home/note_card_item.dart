@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../data/model/notes.dart';
 import '../../utils/routes.dart';
 import '../notes/notes_base_viewmodel.dart';
@@ -38,6 +43,59 @@ class NoteCardItem extends StatelessWidget {
     }
   }
 
+  /// Export note as PDF and share
+  Future<void> _exportAndSharePdf(BuildContext context) async {
+    try {
+      final pdf = pw.Document();
+
+      pdf.addPage(
+        pw.Page(
+          build:
+              (pw.Context ctx) => pw.Padding(
+                padding: const pw.EdgeInsets.all(24),
+                child: pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Text(
+                      note.title,
+                      style: pw.TextStyle(
+                        fontSize: 22,
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
+                    pw.SizedBox(height: 12),
+                    pw.Text(note.body, style: const pw.TextStyle(fontSize: 16)),
+                    pw.SizedBox(height: 20),
+                    pw.Text(
+                      "Created: ${DateFormat.yMMMd().format(note.createdAt)}",
+                      style: const pw.TextStyle(fontSize: 12),
+                    ),
+                    pw.Text(
+                      "Updated: ${DateFormat.yMMMd().add_jm().format(note.updatedAt)}",
+                      style: const pw.TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+        ),
+      );
+
+      // Save PDF to local file
+      final dir = await getTemporaryDirectory();
+      final file = File("${dir.path}/${note.title}.pdf");
+      await file.writeAsBytes(await pdf.save());
+
+      // Share the file
+      await Share.shareXFiles([
+        XFile(file.path),
+      ], text: "Check out my note: ${note.title}");
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Failed to export note: $e")));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final noteBaseViewModel = context.read<NotesBaseViewmodel>();
@@ -68,6 +126,10 @@ class NoteCardItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  IconButton(
+                    onPressed: () => _exportAndSharePdf(context),
+                    icon: const Icon(Icons.picture_as_pdf, color: Colors.blue),
+                  ),
                   Expanded(
                     child: Text(
                       note.title,
