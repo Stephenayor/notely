@@ -35,7 +35,11 @@ class NoteRepositoryImpl implements NoteRepository {
           .snapshots()
           .map(
             (snapshot) =>
-                snapshot.docs.map((doc) => Note.fromMap(doc.data())).toList(),
+                snapshot.docs
+                    .map(
+                      (doc) => Note.fromMap(doc.data() as Map<String, dynamic>),
+                    )
+                    .toList(),
           );
     } catch (e) {
       throw Exception('Failed to fetch notes: $e');

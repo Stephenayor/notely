@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:notely/domain/base_repository.dart';
 import '../../data/model/notes.dart';
@@ -20,7 +21,11 @@ class NotesBaseViewmodel extends ChangeNotifier {
     errorMessage = message;
   }
 
-  Future<void> updateNote(Note note, String userId) async {
+  Future<void> updateNote(
+    Note note,
+    String userId, {
+    bool clearReminder = false,
+  }) async {
     try {
       isLoading = true;
       notifyListeners();

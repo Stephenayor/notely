@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:notely/data/model/notes.dart';
 import 'package:notely/presentation/login/login_screen.dart';
 import 'package:notely/presentation/notes/create_notes_screen.dart';
+import 'package:notely/presentation/notes/notes_with_AI/generate_notes.dart';
 import 'package:notely/presentation/notes/update/edit_note_screen.dart';
+import 'package:notely/presentation/settings/settings_screen.dart';
 import 'package:notely/utils/routes.dart';
 import '../presentation/home/home_screen.dart';
 import '../presentation/onboarding/onboarding_screen.dart';
@@ -36,6 +38,16 @@ final GoRouter router = GoRouter(
         final note = state.extra as Note;
         return EditNoteScreen(note: note);
       },
+    ),
+    GoRoute(
+      path: Routes.generateAIScreen,
+      builder: (context, state) {
+        return GenerateAiScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.settings,
+      builder: (context, state) => const SettingsScreen(),
     ),
     GoRoute(
       path: Routes.successScreen,

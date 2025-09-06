@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../data/model/notes.dart';
 import '../../domain/note_repository.dart';
+import '../../main.dart';
+import '../../utils/notification_service.dart';
 
 class CreateNotesViewmodel extends ChangeNotifier {
   final NoteRepository _noteRepository;
@@ -11,7 +12,12 @@ class CreateNotesViewmodel extends ChangeNotifier {
 
   CreateNotesViewmodel(this._noteRepository);
 
-  Future<void> createNote(String title, String body, String userId) async {
+  Future<void> createNote(
+    String title,
+    String body,
+    String userId,
+    DateTime? reminderDate,
+  ) async {
     try {
       isLoading = true;
       errorMessage = null;
@@ -28,7 +34,17 @@ class CreateNotesViewmodel extends ChangeNotifier {
         updatedAt: now,
         userId: userId,
         isFavorite: false,
+        reminderDate: reminderDate,
       );
+      // Create Local Notification
+      if (note.reminderDate != null) {
+        await NotificationService.instance.scheduleNotification(note);
+        // await NotificationService.instance.zonedScheduleNotification(
+        //   note.title,
+        //   note.reminderDate!,
+        //   "Reminder ${note.title}",
+        // );
+      }
 
       await _noteRepository.saveNote(note, userId);
     } catch (e) {

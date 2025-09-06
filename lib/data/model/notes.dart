@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Note {
   final String id;
   final String title;
@@ -6,6 +8,7 @@ class Note {
   final DateTime updatedAt;
   final String userId;
   late bool isFavorite;
+  final DateTime? reminderDate;
 
   Note({
     required this.id,
@@ -15,6 +18,7 @@ class Note {
     required this.updatedAt,
     required this.userId,
     required this.isFavorite,
+    this.reminderDate,
   });
 
   Note copyWith({
@@ -25,6 +29,8 @@ class Note {
     DateTime? updatedAt,
     String? userId,
     bool? isFavorite,
+    DateTime? reminderDate,
+    bool clearReminder = false,
   }) {
     return Note(
       id: id ?? this.id,
@@ -34,6 +40,7 @@ class Note {
       updatedAt: updatedAt ?? this.updatedAt,
       userId: userId ?? this.userId,
       isFavorite: isFavorite ?? this.isFavorite,
+      reminderDate: clearReminder ? null : (reminderDate ?? this.reminderDate),
     );
   }
 
@@ -46,18 +53,44 @@ class Note {
       'updatedAt': updatedAt.toIso8601String(),
       'userId': userId,
       'isFavorite': isFavorite,
+      'reminderDate':
+          reminderDate != null ? Timestamp.fromDate(reminderDate!) : null,
     };
   }
 
-  factory Note.fromMap(Map<String, dynamic> map) {
+  //
+  //   return Note(
+  //     id: data['id'] ?? '',
+  //     title: data['title'] ?? '',
+  //     body: data['body'] ?? '',
+  //     createdAt: DateTime.parse(data['createdAt']),
+  //     updatedAt: DateTime.parse(data['updatedAt']),
+  //     userId: data['userId'] ?? '',
+  //     isFavorite: data['isFavorite'] ?? false,
+  //     reminderDate:
+  //         data['reminderDate'] != null
+  //             ? (data['reminderDate'] as Timestamp).toDate()
+  //             : null,
+  //   );
+  // }
+
+  factory Note.fromMap(Map<String, dynamic> data) {
+    DateTime? _parseDate(dynamic value) {
+      if (value == null || value == "") return null; // 👈 handle empty string
+      if (value is Timestamp) return value.toDate();
+      if (value is String) return DateTime.tryParse(value);
+      throw Exception("Unsupported date type: ${value.runtimeType}");
+    }
+
     return Note(
-      id: map['id'] ?? '',
-      title: map['title'] ?? '',
-      body: map['body'] ?? '',
-      createdAt: DateTime.parse(map['createdAt']),
-      updatedAt: DateTime.parse(map['updatedAt']),
-      userId: map['userId'] ?? '',
-      isFavorite: map['isFavorite'] ?? false,
+      id: data['id'] ?? '',
+      title: data['title'] ?? '',
+      body: data['body'] ?? '',
+      createdAt: DateTime.parse(data['createdAt']),
+      updatedAt: DateTime.parse(data['updatedAt']),
+      userId: data['userId'] ?? '',
+      isFavorite: data['isFavorite'] ?? false,
+      reminderDate: _parseDate(data['reminderDate']), // 👈 safe parsing
     );
   }
 }

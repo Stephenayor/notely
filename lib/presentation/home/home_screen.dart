@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notely/presentation/home/note_card_item.dart';
+import 'package:notely/presentation/settings/theme_notifier.dart';
 import 'package:notely/utils/routes.dart';
 import 'package:provider/provider.dart';
 import 'home_viewmodel.dart';
-import 'note_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,11 +42,63 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     const Color accentNavy = Color(0xFF122153);
 
     final homeViewModel = context.watch<HomeViewModel>();
+    final isDark = context.watch<ThemeNotifier>().isDarkMode;
 
     // Control animation based on fab state
     homeViewModel.fabOpen ? _controller.forward() : _controller.reverse();
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Notely"),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'generate') {
+                context.push(Routes.generateAIScreen);
+              }
+              if (value == 'settings') {
+                context.push(Routes.settings);
+              }
+              if (value == 'theme') {
+                context.read<ThemeNotifier>().toggleTheme();
+              }
+            },
+            itemBuilder:
+                (context) => [
+                  const PopupMenuItem(
+                    value: 'generate',
+                    child: Row(
+                      children: [
+                        Icon(Icons.bolt),
+                        SizedBox(width: 8),
+                        Text("Generate with AI"),
+                      ],
+                    ),
+                  ),
+                  const PopupMenuItem(
+                    value: 'settings',
+                    child: Row(
+                      children: [
+                        Icon(Icons.settings),
+                        SizedBox(width: 8),
+                        Text("Settings"),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: 'theme',
+                    child: Row(
+                      children: [
+                        Icon(isDark ? Icons.dark_mode : Icons.light_mode),
+                        SizedBox(width: 8),
+                        Text("Toggle Theme"),
+                      ],
+                    ),
+                  ),
+                ],
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
@@ -196,7 +248,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       icon: Icons.note_add,
                       onPressed: () async {
                         await context.push(Routes.createNote);
-
                         // context.read<HomeViewModel>().listenToNotes();
                       },
                     ),

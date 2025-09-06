@@ -8,5 +8,7 @@ class Routes {
   static const String createNote = '/create-note-screen';
   static const String editNote = '/editNoteScreen';
   static const String successScreen = '/success-screen';
-  static const String aiAssistant = '/ai-assistant';
+  static const String generateAIScreen = '/generate-ai-notes';
+  static const String theme = '/theme';
+  static const String settings = '/settings';
 }

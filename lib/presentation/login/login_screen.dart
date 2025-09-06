@@ -21,6 +21,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    // if(FirebaseAuth.instance.currentUser != null){
+    //   context.go(Routes.home);
+    // }
     final loginViewModel = context.read<LoginViewModel>();
     _emailController = TextEditingController(
       text: loginViewModel.savedEmail ?? "",

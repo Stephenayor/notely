@@ -29,9 +29,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<SignUpViewmodel>();
+    final theme = Theme.of(context);
     ToastContext().init(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -172,9 +173,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       "title": "Account Created Successfully",
                                       "message":
                                           "Welcome aboard! Your account has been created.",
-                                      "primaryButtonText": "Go to Home",
+                                      "primaryButtonText": "Go to Login",
                                       "secondaryButtonText": "Done",
-                                      "primaryRoute": Routes.home,
+                                      "primaryRoute": Routes.login,
                                       "secondaryRoute": Routes.signUp,
                                     },
                                   );
