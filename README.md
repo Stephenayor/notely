@@ -166,6 +166,12 @@ An AI powered note taking experience with other user experience enhancements suc
 
 
 
+<img width="290" height="629" alt="Screenshot 2025-09-10 at 07 17 01" src="https://github.com/user-attachments/assets/069eadb2-9961-41b3-8c6c-34c260d4035d" />
+
+
+<img width="290" height="629" alt="Screenshot 2025-09-10 at 07 16 40" src="https://github.com/user-attachments/assets/187fa879-2fd0-44a6-aaa5-f3b35244806e" />
+
+
 
 
 ## Getting Started
