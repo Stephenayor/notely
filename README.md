@@ -6,12 +6,9 @@ An AI powered note taking experience with other user experience enhancements suc
 - Toggle theme
 - Offline support with efficient data sync when network is available.
 
-## Onboarding UI
-<img width="290" height="629" alt="Screenshot 2025-09-10 at 07 16 25" src="https://github.com/user-attachments/assets/7ae88db8-55d2-46cf-95da-04d6158415fe" />
 
-<img width="290" height="629" alt="Screenshot 2025-09-10 at 07 16 20" src="https://github.com/user-attachments/assets/de130966-6221-4386-9075-923f80dcfd0d" />
-
-  [notely_flutter.drawio](https://github.com/user-attachments/files/22248558/notely_flutter.drawio)<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" version="28.1.2" pages="2">
+  
+  [HIGH LEVEL SYSTEM DESIGN](https://github.com/user-attachments/files/22248558/notely_flutter.drawio)<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" version="28.1.2" pages="2">
   <diagram name="Page-1" id="lz82pe6hCrsPi8H9gbmI">
     <mxGraphModel dx="1863" dy="564" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
@@ -159,6 +156,15 @@ An AI powered note taking experience with other user experience enhancements suc
     </mxGraphModel>
   </diagram>
 </mxfile>
+
+## Onboarding UI
+<img width="290" height="629" alt="Screenshot 2025-09-10 at 07 16 25" src="https://github.com/user-attachments/assets/7ae88db8-55d2-46cf-95da-04d6158415fe" />
+
+
+
+<img width="290" height="629" alt="Screenshot 2025-09-10 at 07 16 20" src="https://github.com/user-attachments/assets/de130966-6221-4386-9075-923f80dcfd0d" />
+
+
 
 
 
