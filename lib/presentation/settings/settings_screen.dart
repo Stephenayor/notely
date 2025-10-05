@@ -8,7 +8,7 @@ class SettingsScreen extends StatelessWidget {
 
   Future<void> _logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    context.go(Routes.login); // replace stack with login
+    context.go(Routes.login);
   }
 
   @override

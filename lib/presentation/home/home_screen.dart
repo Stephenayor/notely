@@ -248,7 +248,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       icon: Icons.note_add,
                       onPressed: () async {
                         await context.push(Routes.createNote);
-                        // context.read<HomeViewModel>().listenToNotes();
                       },
                     ),
                     const SizedBox(height: 12),

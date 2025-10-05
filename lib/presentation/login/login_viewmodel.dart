@@ -25,6 +25,8 @@ class LoginViewModel extends ChangeNotifier {
   Future<void> _saveEmail(String email) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(Constants.savedEmail, email);
+    savedEmail = email;
+    notifyListeners();
   }
 
   Future<User?> loginWithEmail(String email, String password) async {
@@ -80,5 +82,18 @@ class LoginViewModel extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+  }
+
+  Future<void> clearSavedEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(Constants.savedEmail);
+    savedEmail = null;
+    notifyListeners();
+  }
+
+  void reset() {
+    errorMessage = null;
+    isLoading = false;
+    notifyListeners();
   }
 }

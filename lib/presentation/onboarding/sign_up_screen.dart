@@ -172,7 +172,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     extra: {
                                       "title": "Account Created Successfully",
                                       "message":
-                                          "Welcome aboard! Your account has been created.",
+                                          "Welcome onboard! Your account has been created.",
                                       "primaryButtonText": "Go to Login",
                                       "secondaryButtonText": "Done",
                                       "primaryRoute": Routes.login,

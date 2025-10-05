@@ -13,6 +13,8 @@ class UserRepositoryImpl implements UserRepository {
   Future<void> saveUserProfile(String uid, UserProfile profile) async {
     try {
       await _firestore.collection("Note users").doc(uid).set(profile.toMap());
+    } on FirebaseException catch (e) {
+      throw Exception("Firestore error: ${e.message}");
     } catch (e) {
       throw Exception("Failed to save user profile: $e");
     }

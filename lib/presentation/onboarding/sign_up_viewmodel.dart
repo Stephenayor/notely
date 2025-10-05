@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:notely/presentation/notes/notes_base_viewmodel.dart';
 import 'package:uuid/uuid.dart';
 import '../../data/model/user_profile.dart';
 import '../../domain/user_repository.dart';
@@ -65,7 +66,7 @@ class SignUpViewmodel extends ChangeNotifier {
     String password,
   ) async {
     try {
-      isLoading = true;
+      _setLoading(true);
       notifyListeners();
 
       final firebaseUserCredential = await _auth.createUserWithEmailAndPassword(
@@ -86,12 +87,31 @@ class SignUpViewmodel extends ChangeNotifier {
       }
 
       return firebaseUser;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'email-already-in-use':
+          errorMessage = "This email is already registered.";
+          break;
+        case 'invalid-email':
+          errorMessage = "Invalid email address.";
+          break;
+        case 'weak-password':
+          errorMessage = "Password is too weak.";
+          break;
+        default:
+          errorMessage = e.message ?? "Signup failed.";
+      }
+      return null;
     } catch (e) {
-      errorMessage = e.toString();
+      errorMessage = "Unexpected Error: $e";
       return null;
     } finally {
-      isLoading = false;
-      notifyListeners();
+      _setLoading(false);
     }
+  }
+
+  void _setLoading(bool value) {
+    isLoading = value;
+    notifyListeners();
   }
 }

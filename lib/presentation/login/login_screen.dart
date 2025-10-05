@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notely/utils/error_dialog.dart';
@@ -102,6 +103,31 @@ class _LoginScreenState extends State<LoginScreen> {
                         return null;
                       },
                     ),
+
+                    // Consumer<LoginViewModel>(
+                    //   builder: (context, homeViewModel, _) {
+                    //     return TextFormField(
+                    //       controller: _emailController,
+                    //       decoration: const InputDecoration(
+                    //         prefixIcon: Icon(Icons.email_outlined),
+                    //         hintText: 'Email',
+                    //         border: OutlineInputBorder(
+                    //           borderRadius: BorderRadius.all(Radius.circular(30)),
+                    //         ),
+                    //       ),
+                    //       validator: (value) {
+                    //         if (value == null || value.isEmpty) {
+                    //           return 'Please enter your email';
+                    //         }
+                    //         if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                    //           return 'Enter a valid email';
+                    //         }
+                    //         return null;
+                    //       },
+                    //       onChanged: (value) => homeViewModel.savedEmail = value,
+                    //     );
+                    //   },
+                    // ),
                     const SizedBox(height: 16),
 
                     // Password field
@@ -291,7 +317,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text("Don’t have an account yet? "),
                         GestureDetector(
                           onTap: () {
-                            // Navigate to signup
+                            context.go(Routes.signUp);
                           },
                           child: const Text(
                             "Signup",

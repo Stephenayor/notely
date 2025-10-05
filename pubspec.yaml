@@ -37,6 +37,12 @@ dependencies:
   pdf: ^3.11.3
   path_provider: ^2.1.5
   share_plus: ^10.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+    android: "launcher_icon"
+    ios: true
+    image_path: "assets/icons/notely_launcher_icon.png"
 
 
 dev_dependencies:
@@ -45,6 +51,7 @@ dev_dependencies:
 
   build_runner: ^2.4.4
   injectable_generator: ^2.7.0
+
 
 
 
@@ -60,6 +67,7 @@ flutter:
      - assets/images/writing.png
      - assets/images/facebook.png
      - assets/images/notely_sucess.png
+     - assets/icons/notely_launcher_icon.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

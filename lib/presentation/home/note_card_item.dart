@@ -99,17 +99,17 @@ class NoteCardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final noteBaseViewModel = context.read<NotesBaseViewmodel>();
     const borderRadius = 14.0;
-    final theme = Theme.of(context); // 👈 use theme
+    final theme = Theme.of(context);
 
     return GestureDetector(
       onTap: () => context.push(Routes.editNote, extra: note),
       child: Container(
         decoration: BoxDecoration(
-          color: theme.cardColor, // 👈 adapts to light/dark theme
+          color: theme.cardColor, // adapts to light/dark theme
           borderRadius: BorderRadius.circular(borderRadius),
           boxShadow: [
             BoxShadow(
-              color: theme.shadowColor.withOpacity(0.1), // 👈 dynamic shadow
+              color: theme.shadowColor.withOpacity(0.1), // dynamic shadow
               blurRadius: 14,
               offset: const Offset(0, 8),
             ),
